@@ -186,6 +186,9 @@ static inline int bragi_dongle_probe(usbdevice* kb){
             }
 
             subkb->handle = 1; // invalid
+            subkb->uinput_kb = 1; // invalid
+            subkb->uinput_mouse = 1; // invalid
+            subkb->fwversion = 1234; // invalid
             subkb->parent = kb;
 
             subkb->out_ep_packet_size = kb->out_ep_packet_size;
@@ -207,7 +210,8 @@ static inline int bragi_dongle_probe(usbdevice* kb){
             subkb->product = pid;
 
             // Unlock mutex here for now
-            queued_mutex_unlock(dmutex(subkb));
+            //queued_mutex_unlock(dmutex(subkb));
+            setupusb(subkb);
             break;
         }
     }
